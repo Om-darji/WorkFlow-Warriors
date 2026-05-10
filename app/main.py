@@ -1,3 +1,41 @@
+# Admin / Analytics Dashboard Endpoint
+@app.get("/admin/analytics")
+def admin_analytics_dashboard():
+    # Example static analytics data; replace with DB queries in production
+    analytics = {
+        "total_users": 1200,
+        "total_trips": 3400,
+        "active_users": 350,
+        "trips_per_month": [
+            {"month": "2026-01", "count": 200},
+            {"month": "2026-02", "count": 250},
+            {"month": "2026-03", "count": 300},
+            {"month": "2026-04", "count": 400},
+            {"month": "2026-05", "count": 350}
+        ],
+        "top_cities": [
+            {"name": "Paris", "count": 180},
+            {"name": "Tokyo", "count": 160},
+            {"name": "Goa", "count": 140}
+        ],
+        "top_activities": [
+            {"name": "Sightseeing", "count": 500},
+            {"name": "Food Tour", "count": 320},
+            {"name": "Adventure", "count": 210}
+        ],
+        "user_engagement": {
+            "avg_trips_per_user": 2.8,
+            "avg_activities_per_trip": 4.2,
+            "retention_rate": 0.67
+        },
+        "user_management": {
+            "users": [
+                {"id": 1, "name": "Traveler123", "email": "traveler@example.com", "status": "active"},
+                {"id": 2, "name": "Explorer456", "email": "explorer@example.com", "status": "inactive"}
+            ]
+        }
+    }
+    return analytics
 # Trip Notes / Journal Endpoints
 from datetime import datetime
 
