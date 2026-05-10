@@ -1,3 +1,64 @@
+# User Profile / Settings Endpoints
+from fastapi import HTTPException
+
+# Example in-memory user store (replace with DB in production)
+user_profiles = {
+    1: {
+        "id": 1,
+        "name": "Traveler123",
+        "email": "traveler@example.com",
+        "photo_url": "https://example.com/photo.jpg",
+        "language": "en",
+        "saved_destinations": ["Paris", "Tokyo", "Goa"]
+    }
+}
+
+# Get user profile
+@app.get("/user/profile/{user_id}")
+def get_user_profile(user_id: int):
+    user = user_profiles.get(user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user
+
+# Update user profile
+@app.post("/user/profile/{user_id}/update")
+def update_user_profile(user_id: int, name: str = None, email: str = None, photo_url: str = None):
+    user = user_profiles.get(user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    if name:
+        user["name"] = name
+    if email:
+        user["email"] = email
+    if photo_url:
+        user["photo_url"] = photo_url
+    return {"message": "Profile updated", "user": user}
+
+# Set language preference
+@app.post("/user/profile/{user_id}/language")
+def set_language(user_id: int, language: str):
+    user = user_profiles.get(user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    user["language"] = language
+    return {"message": "Language updated", "language": language}
+
+# Delete account
+@app.delete("/user/profile/{user_id}/delete")
+def delete_account(user_id: int):
+    if user_id in user_profiles:
+        del user_profiles[user_id]
+        return {"message": "Account deleted"}
+    raise HTTPException(status_code=404, detail="User not found")
+
+# Get saved destinations
+@app.get("/user/profile/{user_id}/saved-destinations")
+def get_saved_destinations(user_id: int):
+    user = user_profiles.get(user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return {"saved_destinations": user.get("saved_destinations", [])}
 # Shared/Public Itinerary View Endpoint
 @app.get("/public/itinerary/{public_id}")
 def public_itinerary_view(public_id: str):
