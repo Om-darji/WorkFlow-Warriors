@@ -1,3 +1,26 @@
+# Trip Budget & Cost Breakdown Endpoint
+@app.get("/trips/{trip_id}/budget")
+def trip_budget_breakdown(trip_id: int):
+    # Example static budget data; replace with DB query in production
+    budget = {
+        "total_estimated_cost": 3500,
+        "breakdown": {
+            "transport": 900,
+            "stay": 1200,
+            "activities": 800,
+            "meals": 600
+        },
+        "average_cost_per_day": 350,
+        "over_budget_days": [
+            {"date": "2026-06-03", "amount": 420},
+            {"date": "2026-06-07", "amount": 410}
+        ],
+        "chart_data": {
+            "labels": ["Transport", "Stay", "Activities", "Meals"],
+            "values": [900, 1200, 800, 600]
+        }
+    }
+    return budget
 # Activity Search Endpoint
 @app.get("/activities/search")
 def search_activities(
