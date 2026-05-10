@@ -1,0 +1,212 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Montserrat', sans-serif;
+    background:#0f172a;
+    color: #f8fafc;
+    line-height: 1.5;
+}
+
+/* Main Container */
+.container{
+    width:100%;
+    padding:20px 30px;
+}
+
+/* Navbar */
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0 25px 0;
+}
+
+/* Brand Section Styling */
+.brand-section{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.brand-name{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #60a5fa;
+    letter-spacing: -1px;
+}
+
+.logo{
+    width:120px; 
+    height:auto;
+    object-fit:contain;
+}
+
+/* Profile */
+.profile-circle{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:#e5e7eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    cursor:pointer;
+    color: #1e293b;
+}
+
+/* Search Section */
+.search-section{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    margin-bottom:40px;
+}
+
+.search-box{
+    flex:1;
+    height:58px;
+    padding:0 20px;
+    border:1px solid #334155;
+    border-radius:14px;
+    font-size:16px;
+    outline:none;
+    background-color: #1e293b;
+    color: #f8fafc;
+}
+
+.search-box::placeholder {
+    color: #94a3b8;
+}
+
+.filter-btn{
+    min-width:140px;
+    height:58px;
+    border:1px solid #334155;
+    border-radius:14px;
+    font-size:16px;
+    cursor:pointer;
+    background-color: #1e293b;
+    color: #f8fafc;
+    transition: background 0.3s;
+}
+
+.filter-btn:hover {
+    background-color: #334155;
+}
+
+/* Sections & Headers */
+.trip-section{
+    margin-bottom:40px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.trip-section h2{
+    font-size:28px;
+    color: #60a5fa;
+}
+
+.see-more {
+    font-size: 16px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.see-more:hover {
+    color: #60a5fa;
+    text-decoration: underline;
+}
+
+/* Trip Cards */
+.trip-card{
+    width:100%;
+    height:155px;
+    background-color: #1e293b;
+    border:1px solid #334155;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    position:relative;
+}
+
+.small-card {
+    height: 175px;
+}
+
+/* Images */
+.trip-image{
+    width:340px;
+    height:100%;
+    object-fit:cover;
+}
+
+/* Content */
+.trip-info{
+    padding:25px;
+}
+
+.trip-info h3{
+    font-size:22px;
+    margin-bottom:12px;
+    color: #60a5fa;
+}
+
+.trip-info p{
+    font-size:18px;
+    color:#94a3b8;
+}
+
+/* Menu */
+.menu-icon{
+    position:absolute;
+    right:20px;
+    top:20px;
+    font-size:24px;
+    color:#94a3b8;
+    cursor:pointer;
+}
+
+/* Completed Grid */
+.completed-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+/* Laptop Responsive */
+@media screen and (max-width:1440px){
+    .trip-image{
+        width:300px;
+    }
+    .trip-card{
+        height:145px;
+    }
+}
+
+@media screen and (max-width:1366px){
+    .brand-name{
+        font-size: 1.8rem;
+    }
+    .trip-info h3{
+        font-size:20px;
+    }
+    .trip-info p{
+        font-size:16px;
+    }
+    .search-box, .filter-btn{
+        height:52px;
+    }
+}
