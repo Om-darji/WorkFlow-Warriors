@@ -1,3 +1,53 @@
+# Trip Notes / Journal Endpoints
+from datetime import datetime
+
+# Example in-memory notes store (replace with DB in production)
+trip_notes = {}
+
+# Get notes for a trip (optionally per stop)
+@app.get("/trips/{trip_id}/notes")
+def get_trip_notes(trip_id: int, stop: str = None):
+    notes = trip_notes.get(trip_id, [])
+    if stop:
+        notes = [n for n in notes if n.get("stop") == stop]
+    # Sort by timestamp descending
+    notes = sorted(notes, key=lambda n: n["timestamp"], reverse=True)
+    return {"notes": notes}
+
+# Add note
+@app.post("/trips/{trip_id}/notes/add")
+def add_trip_note(trip_id: int, text: str, stop: str = None):
+    notes = trip_notes.setdefault(trip_id, [])
+    note_id = max([n["id"] for n in notes], default=0) + 1
+    note = {
+        "id": note_id,
+        "text": text,
+        "stop": stop,
+        "timestamp": datetime.utcnow().isoformat()
+    }
+    notes.append(note)
+    return {"message": "Note added", "note": note}
+
+# Edit note
+@app.post("/trips/{trip_id}/notes/edit")
+def edit_trip_note(trip_id: int, note_id: int, text: str):
+    notes = trip_notes.setdefault(trip_id, [])
+    for n in notes:
+        if n["id"] == note_id:
+            n["text"] = text
+            n["timestamp"] = datetime.utcnow().isoformat()
+            return {"message": "Note updated", "note": n}
+    return {"error": "Note not found"}
+
+# Delete note
+@app.delete("/trips/{trip_id}/notes/delete")
+def delete_trip_note(trip_id: int, note_id: int):
+    notes = trip_notes.setdefault(trip_id, [])
+    for n in notes:
+        if n["id"] == note_id:
+            notes.remove(n)
+            return {"message": "Note deleted", "note_id": note_id}
+    return {"error": "Note not found"}
 # User Profile / Settings Endpoints
 from fastapi import HTTPException
 
