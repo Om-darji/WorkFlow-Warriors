@@ -1,5 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+.hidden-msg {
+    display: none;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    color: white;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+.msg-error { background-color: #ff4757; display: block; }
+.msg-success { background-color: #2ed573; display: block; }
+
+.modal-overlay {
+    display: none; /* JavaScript will change this to 'flex' */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Darker overlay */
+    backdrop-filter: blur(5px);
+    z-index: 9999; /* Higher than everything else */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-cancel { background: #eee; color: #333; border: none; }
+.btn-reset { background: #007bff; color: white; border: none; flex-grow: 1; }
+
 *{
     margin:0;
     padding:0;
