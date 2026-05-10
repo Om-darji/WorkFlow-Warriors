@@ -1,3 +1,35 @@
+# Shared/Public Itinerary View Endpoint
+@app.get("/public/itinerary/{public_id}")
+def public_itinerary_view(public_id: str):
+    # Example static public itinerary data; replace with DB query in production
+    itinerary = {
+        "public_id": public_id,
+        "trip_name": "Europe Adventure",
+        "summary": "A 2-week journey through Paris and Rome, packed with culture, food, and adventure.",
+        "owner": "Traveler123",
+        "days": [
+            {
+                "city": "Paris",
+                "date": "2026-06-01",
+                "activities": [
+                    {"name": "Eiffel Tower", "time": "10:00", "cost": 25},
+                    {"name": "Louvre Museum", "time": "14:00", "cost": 20}
+                ]
+            },
+            {
+                "city": "Rome",
+                "date": "2026-06-06",
+                "activities": [
+                    {"name": "Colosseum", "time": "09:00", "cost": 18},
+                    {"name": "Vatican City", "time": "13:00", "cost": 22}
+                ]
+            }
+        ],
+        "share_url": f"https://traveloop.com/public/itinerary/{public_id}",
+        "can_copy": True,
+        "read_only": True
+    }
+    return itinerary
 # Packing Checklist Endpoints
 from fastapi import Query
 
