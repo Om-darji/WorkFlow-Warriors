@@ -1,0 +1,152 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0f172a; 
+    color: #f1f5f9;
+}
+
+/* Wider container to remove side spacing */
+.container {
+    width: 100%;
+    max-width: 95%; 
+    margin: 0 auto;
+    padding: 40px 10px;
+}
+
+/* Page Title with Inline Logo */
+.page-title {
+    margin-bottom: 35px;
+}
+
+.brand-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.inline-logo {
+    width: 120px;
+    height: 120px;
+    /* object-fit: contain; */
+}
+
+.page-title h1 {
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(to right, #60a5fa, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Dark Mode Form Section */
+.trip-form-section {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.trip-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 12px;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    letter-spacing: 0.5px;
+}
+
+.form-group input {
+    padding: 14px;
+    background: #0f172a;
+    border: 1px solid #475569;
+    border-radius: 12px;
+    outline: none;
+    color: white;
+    font-size: 15px;
+}
+
+.form-group input:focus {
+    border-color: #3b82f6;
+}
+
+/* Suggestions Section */
+.suggestions-section {
+    margin-top: 50px;
+}
+
+.suggestions-section h2 {
+    font-size: 22px;
+    margin-bottom: 30px;
+    color: #cbd5e1;
+}
+
+/* 4-column grid for wide screens */
+.suggestion-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+/* Suggestion Cards */
+.suggestion-card {
+    height: 280px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestion-card img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-content h3 {
+    font-size: 16px;
+    color: #f1f5f9;
+}
+
+.suggestion-card:hover {
+    transform: translateY(-8px);
+    border-color: #3b82f6;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+/* Mobile & Tablet Responsive Brackets */
+@media (max-width: 1200px) {
+    .suggestion-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+    .suggestion-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .trip-form { grid-template-columns: 1fr; }
+    .suggestion-grid { grid-template-columns: 1fr; }
+}
