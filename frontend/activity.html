@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveloop Search</title>
+    <link rel="stylesheet" href="activity.css">
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <!-- Navbar -->
+    <header class="navbar">
+
+        <div class="navbar-left">
+            <img src="logo.png" class="logo" alt="logo">
+            <h1>Traveloop</h1>
+        </div>
+
+        <div class="navbar-center">
+            <a href="#">Dashboard</a>
+            <a href="#">My Trips</a>
+            <a href="#">Explore</a>
+            <a href="#">Itinerary</a>
+            <a href="#">Profile</a>
+        </div>
+
+        <div class="navbar-right">
+            <span>🔔</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" class="profile-img" alt="profile">
+        </div>
+
+    </header>
+
+    <!-- Title -->
+    <section class="title-section">
+        <h2>Activity Search / City Search</h2>
+        <p>Find the best places, activities, hotels and more</p>
+    </section>
+
+    <!-- Search Bar -->
+    <section class="search-toolbar">
+
+        <input type="text" value="Paris">
+
+        <button>Group by</button>
+        <button>Filter</button>
+
+        <select>
+            <option>Recommended</option>
+        </select>
+
+    </section>
+
+    <!-- Main Grid -->
+    <section class="main-grid">
+
+        <!-- Filter Sidebar -->
+        <aside class="left-sidebar">
+
+            <div class="sidebar-card">
+
+                <div class="sidebar-top">
+                    <h3>Filter Results</h3>
+                    <span>Clear All</span>
+                </div>
+
+                <div class="filter-block">
+                    <h4>Category</h4>
+                    <label><input type="checkbox"> Attractions</label>
+                    <label><input type="checkbox"> Activities</label>
+                    <label><input type="checkbox"> Hotels</label>
+                    <label><input type="checkbox"> Restaurants</label>
+                    <label><input type="checkbox"> Transport</label>
+                </div>
+
+                <div class="filter-block">
+                    <h4>Rating</h4>
+                    <label><input type="checkbox"> 4.5 & above</label>
+                    <label><input type="checkbox"> 4.0 & above</label>
+                    <label><input type="checkbox"> 3.5 & above</label>
+                </div>
+
+                <div class="filter-block">
+                    <h4>Duration</h4>
+                    <label><input type="checkbox"> Up to 1 hour</label>
+                    <label><input type="checkbox"> 1–3 hours</label>
+                    <label><input type="checkbox"> 3+ hours</label>
+                </div>
+
+            </div>
+
+        </aside>
+
+        <!-- Results -->
+        <main class="results-container">
+
+            <p class="results-text">Showing 48 results for “Paris”</p>
+
+            <!-- Result Item -->
+            <div class="result-item">
+
+                <img src="https://choosewhere.com/public/images/fQpK5xb/945_630/shutterstock_710380270.webp" alt="eiffel">
+
+                <div class="result-details">
+
+                    <div class="result-top">
+                        <h3>Eiffel Tower</h3>
+                        <span>Attraction</span>
+                    </div>
+
+                    <p>Champ de Mars, Paris</p>
+                    <p>⭐ 4.8 (45,210 reviews)</p>
+                    <p>Iconic iron tower offering stunning views of Paris.</p>
+
+                    <div class="result-meta">
+                        <span>₹2,500</span>
+                        <span>2–3 hrs</span>
+                        <span>9AM - 11PM</span>
+                        <span>800m</span>
+                    </div>
+
+                </div>
+
+                <div class="result-buttons">
+                    <button class="outline-btn">View Details</button>
+                    <button class="filled-btn">+ Add to Trip</button>
+                </div>
+
+            </div>
+
+            <!-- Result Item -->
+            <div class="result-item">
+
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR69s6DHX_V3koMaGnhJvpN5T4oj816Exq9Og&s" alt="museum">
+
+                <div class="result-details">
+
+                    <div class="result-top">
+                        <h3>Louvre Museum</h3>
+                        <span>Attraction</span>
+                    </div>
+
+                    <p>Rue de Rivoli, Paris</p>
+                    <p>⭐ 4.7 (32,112 reviews)</p>
+                    <p>World’s largest art museum and historic landmark.</p>
+
+                    <div class="result-meta">
+                        <span>₹1,800</span>
+                        <span>2–4 hrs</span>
+                        <span>9AM - 6PM</span>
+                        <span>1.2km</span>
+                    </div>
+
+                </div>
+
+                <div class="result-buttons">
+                    <button class="outline-btn">View Details</button>
+                    <button class="filled-btn">+ Add to Trip</button>
+                </div>
+
+            </div>
+
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+
+            <div class="trip-card">
+
+                <h3>Your Trip</h3>
+
+                <div class="trip-preview">
+                    <img src="https://explore-live.s3.eu-west-1.amazonaws.com/medialibraries/explore/explore-media/destinations/asia/japan/japan-thumb.jpg?ext=.jpg.jpg" alt="trip">
+                    <div>
+                        <h4>Japan Tour</h4>
+                        <p>12 Jun - 20 Jun</p>
+                    </div>
+                </div>
+
+                <div class="trip-section">
+                    <h4>Trip Section</h4>
+                    <p>Tokyo</p>
+                    <small>12 Jun - 15 Jun</small>
+                </div>
+
+            </div>
+
+            <div class="recent-card">
+
+                <h3>Recently Added</h3>
+
+                <div class="recent-item">Tokyo Tower</div>
+                <div class="recent-item">Shibuya Crossing</div>
+                <div class="recent-item">Meiji Shrine</div>
+
+                <button class="full-btn">
+                    View My Itinerary
+                </button>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+</div>
+
+</body>
+</html>
