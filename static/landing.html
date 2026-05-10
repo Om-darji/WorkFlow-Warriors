@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Traveloop | Plan Your Journey</title>
+    <link rel="stylesheet" href="landing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <nav class="navbar">
+            <div class="logo-group">
+                <img src="logo.png" alt="Logo" class="logo-icon">
+                <div class="logo">Traveloop</div>
+            </div>
+            
+            <div class="nav-right">
+                <div class="search-wrapper">
+                    <input type="text" class="nav-search" placeholder="Search destinations...">
+                    <button class="search-inside-btn">🔍</button>
+                </div>
+                <div class="profile-circle" onclick="window.location.href='login.html'" style="cursor: pointer;">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Profile">
+                </div>
+
+                <button class="plan-trip-btn" onclick="checkAuthAndPlan()">+ Plan a Trip</button>
+            </div>
+        </nav>
+
+        <section class="hero-section">
+            <div class="hero-banner" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1400&q=80');">
+                <h1>Plan Your Perfect Journey</h1>
+            </div>
+        </section>
+
+        <section class="search-filter-section">
+            <div class="main-search-wrapper">
+                <input type="text" class="search-box" placeholder="Search cities, countries, attractions...">
+                <button class="main-search-inside-btn">Search</button>
+            </div>
+            <button class="filter-btn">Group By</button>
+            <button class="filter-btn">Filter</button>
+            <button class="filter-btn">Sort By</button>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Top Regional Selections</h2>
+            <div class="region-cards">
+                <div class="card region-card">
+                    <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=400&q=80" alt="Europe">
+                    <span>Europe</span>
+                </div>
+                <div class="card region-card">
+                    <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=400&q=80" alt="Asia">
+                    <span>Asia</span>
+                </div>
+                <div class="card region-card">
+                    <img src="https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?auto=format&fit=crop&w=400&q=80" alt="Africa">
+                    <span>Africa</span>
+                </div>
+                <div class="card region-card">
+                    <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80" alt="America">
+                    <span>America</span>
+                </div>
+                <div class="card region-card">
+                    <img src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?auto=format&fit=crop&w=400&q=80" alt="Oceania">
+                    <span>Oceania</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Previous Trips</h2>
+            <div class="trip-cards">
+                <div class="card trip-card">
+                    <div class="trip-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80" alt="Iceland">
+                    </div>
+                    <div class="trip-info">
+                        <h3>Reykjavík, Iceland</h3>
+                        <p>September 2025 • 7 Days</p>
+                    </div>
+                </div>
+                <div class="card trip-card">
+                    <div class="trip-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&fit=crop&w=600&q=80" alt="Japan">
+                    </div>
+                    <div class="trip-info">
+                        <h3>Kyoto, Japan</h3>
+                        <p>April 2025 • 12 Days</p>
+                    </div>
+                </div>
+                <div class="card trip-card">
+                    <div class="trip-image-wrapper">
+                        <img src="https://www.revigorate.com/images/Zermatt-town-Matterhorn-mountain-Valais-canton-Switzerland.jpg" alt="Switzerland">
+                    </div>
+                    <div class="trip-info">
+                        <h3>Zermatt, Switzerland</h3>
+                        <p>December 2024 • 5 Days</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <button class="plan-trip-btn">+ Plan a Trip</button>
+
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const userId = localStorage.getItem('user_id');
+        const planBtn = document.querySelector('.plan-trip-btn');
+        const sectionTitle = document.querySelector('.section-title');
+
+        if (userId) {
+            console.log("Session active for user:", userId);
+            if (sectionTitle) sectionTitle.innerText = "Welcome back! Your Previous Trips";
+        }
+
+        // Single source of truth for the click handler
+        planBtn.addEventListener('click', () => {
+            if (!userId) {
+                window.location.href = "login.html";
+            } else {
+                // This is where you'll eventually trigger the Trip Modal
+                alert("Auth verified! Opening Trip Planner...");
+            }
+        });
+    });
+</script>
+
+
+</html>

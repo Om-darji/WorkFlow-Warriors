@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from typing import List
 
@@ -17,8 +18,8 @@ app.add_middleware(
 )
 
 @app.get("/")
-def read_root():
-    return {"message": "Welcome to Traveloop API - The Allocators are online!"}
+def home():
+    return RedirectResponse(url="/static/landing.html")
 
 # --- AUTHENTICATION ---
 

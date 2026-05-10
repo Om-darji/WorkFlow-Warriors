@@ -24,9 +24,10 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
 
     const data = await response.json();
     if (response.ok) {
-        showMessage("Account created! Switching to Login...", "success");
+        showMessage("Account created! Please login.", "success");
         setTimeout(() => {
-            document.getElementById('login').checked = true;
+            // This triggers the CSS transition in your login.css
+            document.getElementById('login').checked = true; 
         }, 1500);
     } else {
         // Correctly parsing FastAPI detail lists
@@ -59,7 +60,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
         showMessage("Login successful! Welcome back.", 'success');
         
         setTimeout(() => {
-            window.location.href = "dashboard.html";
+            window.location.href = "landing.html";
         }, 1000);
     } else {
         const errorMsg = Array.isArray(data.detail) ? data.detail[0].msg : data.detail;
@@ -94,4 +95,20 @@ window.onclick = function(event) {
     if (event.target == modal) {
         closeModal();
     }
+}
+
+function showMessage(text, type) {
+    const box = document.getElementById('message-box');
+    if (!box) {
+        // Fallback if the message-box div is missing from HTML
+        alert(text);
+        return;
+    }
+    box.innerText = text;
+    box.className = type === 'error' ? 'hidden-msg msg-error' : 'hidden-msg msg-success';
+    
+    // Hide it after 3 seconds
+    setTimeout(() => {
+        box.className = 'hidden-msg';
+    }, 3000);
 }
