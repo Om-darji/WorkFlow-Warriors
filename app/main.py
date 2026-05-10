@@ -1,3 +1,4 @@
+from fastapi import UploadFile, File, Form
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
@@ -60,3 +61,61 @@ def login(
             "full_name": user.full_name
         }
     }
+
+
+    # Dashboard Endpoint
+    @app.get("/dashboard")
+    def get_dashboard():
+        dashboard_data = {
+            "welcome_message": "Welcome Back, Traveler ✈️",
+            "stats": {
+                "total_trips": 12,
+                "countries_visited": 8,
+                "total_budget": 120000,
+                "upcoming_trips": 3
+            },
+            "recent_trips": [
+                {
+                    "destination": "Paris",
+                    "days": 5,
+                    "budget": 45000
+                },
+                {
+                    "destination": "Tokyo",
+                    "days": 7,
+                    "budget": 82000
+                },
+                {
+                    "destination": "Dubai",
+                    "days": 4,
+                    "budget": 60000
+                }
+            ],
+            "recommended_destinations": [
+                "Goa",
+                "Switzerland",
+                "Bali"
+            ]
+        }
+        return dashboard_data
+
+
+    # Create Trip Endpoint
+    @app.post("/trips/create")
+    async def create_trip(
+        trip_name: str = Form(...),
+        start_date: str = Form(...),
+        end_date: str = Form(...),
+        description: str = Form(...),
+        cover_photo: UploadFile = File(None)
+    ):
+        # Here you would typically save the trip to the database and handle the file upload
+        # For now, just return the received data
+        trip_data = {
+            "trip_name": trip_name,
+            "start_date": start_date,
+            "end_date": end_date,
+            "description": description,
+            "cover_photo_filename": cover_photo.filename if cover_photo else None
+        }
+        return {"message": "Trip created successfully", "trip": trip_data}
