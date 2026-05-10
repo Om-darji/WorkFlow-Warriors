@@ -1,0 +1,186 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+}
+
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:250px;
+    background:#111827;
+    color:white;
+    padding:30px 20px;
+}
+
+.sidebar h2{
+    margin-bottom:40px;
+    font-size:28px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.sidebar ul li:hover,
+.sidebar ul .active{
+    background:#2563eb;
+}
+
+/* Main Content */
+
+.main-content{
+    flex:1;
+    padding:30px;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.header h1{
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.header p{
+    color:gray;
+}
+
+.plan-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:14px 24px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.3s;
+}
+
+.plan-btn:hover{
+    background:#1e40af;
+}
+
+/* Stats */
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:40px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card h3{
+    color:gray;
+    margin-bottom:10px;
+}
+
+.card p{
+    font-size:28px;
+    font-weight:bold;
+}
+
+/* Sections */
+
+.section{
+    margin-bottom:40px;
+}
+
+.section-title{
+    margin-bottom:20px;
+}
+
+.trip-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+.trip-card{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.trip-card img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.trip-content{
+    padding:20px;
+}
+
+.trip-content h3{
+    margin-bottom:10px;
+}
+
+/* Destinations */
+
+.destination-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.destination-card{
+    background:white;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.destination-card h3{
+    margin-bottom:10px;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .container{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .header{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
+
+}
