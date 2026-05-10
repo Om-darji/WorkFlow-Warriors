@@ -48,7 +48,6 @@ body {
 
 .logo {
     width: 40px; /* Adjusted size */
-    filter: brightness(0) invert(1);
 }
 
 .navbar-left h1 {
