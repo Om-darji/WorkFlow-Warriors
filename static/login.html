@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveloop Authentication</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="left-section">
+        <div class="left-content">
+            <img src="logo.png" alt="Traveloop Logo" class="logo">
+            <h1 class="brand-name">Traveloop</h1>
+            <h2>Plan Your Dream Journey</h2>
+            <p>
+                Create personalized itineraries, manage budgets,
+                explore destinations and travel smarter.
+            </p>
+        </div>
+    </div>
+
+    <div class="right-section">
+        <div class="auth-container">
+            <input type="radio" name="auth-toggle" id="login" checked>
+            <input type="radio" name="auth-toggle" id="signup">
+
+            <div class="tabs">
+                <label for="login" class="login-tab">Login</label>
+                <label for="signup" class="signup-tab">Sign Up</label>
+            </div>
+
+            <div class="form-wrapper">
+
+                <form class="form login-form" id="login-form">
+                    <h2>Welcome Back</h2>
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                    <button type="submit">Login</button>
+                </form>
+
+                <form class="form signup-form" id="signup-form">
+                    <h2>Create Account</h2>
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="signup-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="signup-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="signup-password" placeholder="Create password" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Confirm Password</label>
+                        <input type="password" id="signup-confirm" placeholder="Confirm password" required>
+                    </div>
+                    <button type="submit">Sign Up</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="auth.js"></script>
+</body>
+</html>

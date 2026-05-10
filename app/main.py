@@ -1,13 +1,13 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from typing import List
 
-from app import models
-from app import database  
+# Internal imports
+from . import models, schemas, database  
 
 app = FastAPI(title="Traveloop API")
 
-# Allow frontend to connect with backend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -16,47 +16,61 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Home Route
 @app.get("/")
 def read_root():
-    return {
-        "message": "Welcome to the Traveloop API - Backend Running Successfully"
-    }
+    return {"message": "Welcome to Traveloop API - The Allocators are online!"}
 
+# --- AUTHENTICATION ---
 
-# Login Endpoint
+@app.post("/register", response_model=schemas.UserResponse, status_code=status.HTTP_201_CREATED)
+def register(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
+    # 1. Check if user already exists
+    db_user = db.query(models.User).filter(models.User.email == user.email).first()
+    if db_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    # 2. Create User
+    new_user = models.User(
+        email=user.email,
+        full_name=user.full_name,
+        password_hash=user.password  # To be hashed in production
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
+
 @app.post("/login")
-def login(
-    email: str,
-    password: str,
-    db: Session = Depends(database.get_db)
-):
-
-    # Find user by email
-    user = db.query(models.User).filter(
-        models.User.email == email
-    ).first()
-
-    # User not found
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found"
-        )
-
-    # Password check
-    if user.password_hash != password:
+def login(user_credentials: schemas.UserCreate, db: Session = Depends(database.get_db)):
+    # 1. Fetch user
+    user = db.query(models.User).filter(models.User.email == user_credentials.email).first()
+    
+    # 2. Validate
+    if not user or user.password_hash != user_credentials.password:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect password"
+            detail="Invalid Credentials"
         )
 
-    # Success response
-    return {
-        "message": "Login successful",
-        "user": {
-            "id": user.id,
-            "email": user.email,
-            "full_name": user.full_name
-        }
-    }
+    return {"message": "Login successful", "user_id": user.id}
+
+@app.post("/trips", response_model=schemas.TripResponse)
+def create_trip(trip: schemas.TripCreate, user_id: int, db: Session = Depends(database.get_db)):
+    # Relational Check: Verify user exists before creating trip
+    user = db.query(models.User).filter(models.User.id == user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+        
+    new_trip = models.Trip(**trip.dict(), user_id=user_id)
+    db.add(new_trip)
+    db.commit()
+    db.refresh(new_trip)
+    return new_trip
+
+@app.get("/trips/{user_id}", response_model=List[schemas.TripResponse])
+def get_my_trips(user_id: int, db: Session = Depends(database.get_db)):
+    return db.query(models.Trip).filter(models.Trip.user_id == user_id).all()
+
+# Should be at the bottom of main.py
+from fastapi.staticfiles import StaticFiles
+app.mount("/static", StaticFiles(directory="static"), name="static")
