@@ -1,3 +1,72 @@
+# Activity Search Endpoint
+@app.get("/activities/search")
+def search_activities(
+    query: str = "",
+    activity_type: str = None,
+    min_cost: int = 0,
+    max_cost: int = 1000,
+    min_duration: int = 0,
+    max_duration: int = 24
+):
+    # Example static activity data; replace with DB query in production
+    all_activities = [
+        {
+            "name": "Eiffel Tower Tour",
+            "type": "Sightseeing",
+            "cost": 25,
+            "duration": 2,
+            "description": "Visit the iconic Eiffel Tower.",
+            "image_url": "https://example.com/eiffel.jpg"
+        },
+        {
+            "name": "Louvre Museum",
+            "type": "Culture",
+            "cost": 20,
+            "duration": 3,
+            "description": "Explore world-famous art collections.",
+            "image_url": "https://example.com/louvre.jpg"
+        },
+        {
+            "name": "Seine River Cruise",
+            "type": "Sightseeing",
+            "cost": 30,
+            "duration": 1,
+            "description": "Cruise along the Seine River.",
+            "image_url": "https://example.com/seine.jpg"
+        },
+        {
+            "name": "Food Tour Rome",
+            "type": "Food",
+            "cost": 40,
+            "duration": 4,
+            "description": "Taste authentic Roman cuisine.",
+            "image_url": "https://example.com/foodtour.jpg"
+        },
+        {
+            "name": "Vatican City Visit",
+            "type": "Culture",
+            "cost": 22,
+            "duration": 3,
+            "description": "Discover the Vatican's treasures.",
+            "image_url": "https://example.com/vatican.jpg"
+        },
+        {
+            "name": "Surfing Bali",
+            "type": "Adventure",
+            "cost": 50,
+            "duration": 5,
+            "description": "Catch waves on Bali's beaches.",
+            "image_url": "https://example.com/surfing.jpg"
+        }
+    ]
+    filtered = [
+        a for a in all_activities
+        if (query.lower() in a["name"].lower())
+        and (activity_type is None or a["type"].lower() == activity_type.lower())
+        and (min_cost <= a["cost"] <= max_cost)
+        and (min_duration <= a["duration"] <= max_duration)
+    ]
+    return {"results": filtered}
 # City Search Endpoint
 @app.get("/cities/search")
 def search_cities(query: str = "", country: str = None, region: str = None):
