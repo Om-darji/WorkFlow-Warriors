@@ -1,3 +1,44 @@
+# Itinerary View Endpoint
+@app.get("/trips/{trip_id}/itinerary/view")
+def view_itinerary(trip_id: int, view_mode: str = "list"):
+    # Example static itinerary data; replace with DB query in production
+    itinerary = [
+        {
+            "city": "Paris",
+            "days": [
+                {
+                    "date": "2026-06-01",
+                    "activities": [
+                        {"name": "Eiffel Tower", "time": "10:00", "cost": 25},
+                        {"name": "Seine River Cruise", "time": "15:00", "cost": 30}
+                    ]
+                },
+                {
+                    "date": "2026-06-02",
+                    "activities": [
+                        {"name": "Louvre Museum", "time": "11:00", "cost": 20}
+                    ]
+                }
+            ]
+        },
+        {
+            "city": "Rome",
+            "days": [
+                {
+                    "date": "2026-06-06",
+                    "activities": [
+                        {"name": "Colosseum", "time": "09:00", "cost": 18},
+                        {"name": "Vatican City", "time": "13:00", "cost": 22}
+                    ]
+                }
+            ]
+        }
+    ]
+    return {
+        "trip_id": trip_id,
+        "view_mode": view_mode,
+        "itinerary": itinerary
+    }
 from fastapi import Body
 # Itinerary Builder Endpoint
 @app.post("/trips/{trip_id}/itinerary")
