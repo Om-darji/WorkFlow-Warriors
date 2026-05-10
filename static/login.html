@@ -6,6 +6,7 @@
     <title>Traveloop Authentication</title>
     <link rel="stylesheet" href="login.css">
 </head>
+<div id="message-box" class="hidden-msg"></div>
 <body>
 
 <div class="container">
@@ -75,5 +76,23 @@
 </div>
 
 <script src="auth.js"></script>
+<div id="forgot-password-modal" class="modal-overlay">
+    <div class="modal-content">
+        <h2>Reset Password</h2>
+        <p>Enter your email and a new password to reset.</p>
+        <div class="input-group">
+            <label>Email Address</label>
+            <input type="email" id="reset-email" placeholder="Registered email">
+        </div>
+        <div class="input-group">
+            <label>New Password</label>
+            <input type="password" id="reset-new-password" placeholder="Min. 8 characters">
+        </div>
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+            <button class="btn-reset" id="submit-reset">Update Password</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -41,7 +41,7 @@ def register(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
     return new_user
 
 @app.post("/login")
-def login(user_credentials: schemas.UserCreate, db: Session = Depends(database.get_db)):
+def login(user_credentials: schemas.UserLogin, db: Session = Depends(database.get_db)):
     # 1. Fetch user
     user = db.query(models.User).filter(models.User.email == user_credentials.email).first()
     
@@ -52,7 +52,21 @@ def login(user_credentials: schemas.UserCreate, db: Session = Depends(database.g
             detail="Invalid Credentials"
         )
 
-    return {"message": "Login successful", "user_id": user.id}
+    return {
+        "message": "Login successful", 
+        "user_id": user.id,
+        "full_name": user.full_name
+    }
+
+@app.put("/reset-password")
+def reset_password(email: str, new_password: str, db: Session = Depends(database.get_db)):
+    user = db.query(models.User).filter(models.User.email == email).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    user.password_hash = new_password
+    db.commit()
+    return {"message": "Password updated successfully"}
 
 @app.post("/trips", response_model=schemas.TripResponse)
 def create_trip(trip: schemas.TripCreate, user_id: int, db: Session = Depends(database.get_db)):

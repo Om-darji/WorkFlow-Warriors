@@ -1,10 +1,16 @@
 // --- SIGNUP LOGIC ---
 document.getElementById('signup-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    
+
     const fullName = document.getElementById('signup-name').value;
     const email = document.getElementById('signup-email').value;
     const password = document.getElementById('signup-password').value;
+    const confirmPassword = document.getElementById('signup-confirm').value; // Fixed
+
+    if (password !== confirmPassword) {
+        showMessage("Passwords do not match!", "error");
+        return;
+    }
 
     const response = await fetch('http://127.0.0.1:8000/register', {
         method: 'POST',
@@ -18,10 +24,14 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
 
     const data = await response.json();
     if (response.ok) {
-        alert("Account created! You can now login.");
-        document.getElementById('login').checked = true; // Switch tab to Login
+        showMessage("Account created! Switching to Login...", "success");
+        setTimeout(() => {
+            document.getElementById('login').checked = true;
+        }, 1500);
     } else {
-        alert("Signup Error: " + data.detail);
+        // Correctly parsing FastAPI detail lists
+        const errorMsg = Array.isArray(data.detail) ? data.detail[0].msg : data.detail;
+        showMessage(errorMsg, 'error');
     }
 });
 
@@ -35,16 +45,53 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     const response = await fetch('http://127.0.0.1:8000/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, password: password })
+        // Matches UserLogin schema: strictly email and password
+        body: JSON.stringify({ 
+            email: email, 
+            password: password 
+        })
     });
 
     const data = await response.json();
     if (response.ok) {
-        // IMPORTANT: Store the user_id so we know who is logged in!
+        // Storing the ID for relational trip creation later
         localStorage.setItem('user_id', data.user_id);
-        alert("Login successful!");
-        window.location.href = "dashboard.html"; // Redirect to next screen
+        showMessage("Login successful! Welcome back.", 'success');
+        
+        setTimeout(() => {
+            window.location.href = "dashboard.html";
+        }, 1000);
     } else {
-        alert("Login Error: " + data.detail);
+        const errorMsg = Array.isArray(data.detail) ? data.detail[0].msg : data.detail;
+        showMessage(errorMsg, 'error');
     }
 });
+
+// --- FORGOT PASSWORD MODAL LOGIC ---
+
+// Using an event listener is more stable than .onclick
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.classList.contains('forgot-password')) {
+        e.preventDefault();
+        const modal = document.getElementById('forgot-password-modal');
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    }
+});
+
+// Close Modal function
+function closeModal() {
+    const modal = document.getElementById('forgot-password-modal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+// Close modal if user clicks outside the content box
+window.onclick = function(event) {
+    const modal = document.getElementById('forgot-password-modal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
