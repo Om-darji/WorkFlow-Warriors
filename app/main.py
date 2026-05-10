@@ -1,3 +1,35 @@
+from typing import List
+# My Trips (Trip List) Endpoint
+@app.get("/trips")
+def list_trips():
+    # Example static data; replace with DB query in production
+    trips = [
+        {
+            "id": 1,
+            "name": "Europe Adventure",
+            "start_date": "2026-06-01",
+            "end_date": "2026-06-15",
+            "destination_count": 4,
+            "actions": ["view", "edit", "delete"]
+        },
+        {
+            "id": 2,
+            "name": "Asian Expedition",
+            "start_date": "2026-08-10",
+            "end_date": "2026-08-25",
+            "destination_count": 3,
+            "actions": ["view", "edit", "delete"]
+        },
+        {
+            "id": 3,
+            "name": "Beach Getaway",
+            "start_date": "2026-12-20",
+            "end_date": "2026-12-27",
+            "destination_count": 2,
+            "actions": ["view", "edit", "delete"]
+        }
+    ]
+    return {"trips": trips}
 from fastapi import UploadFile, File, Form
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
