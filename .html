@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Travel Loop</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet"
+    href="travel.css" />
+     <script src="travel.js"></script>
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      <img src="C:\Users\fahim\OneDrive\Pictures\Screenshots 1\logo.jpeg" alt="Travel Loop Logo">
+      <h1>Travel Loop</h1>
+    </div>
+
+    <div class="profile">
+      <i class="fa-solid fa-user"></i>
+    </div>
+
+  </header>
+
+  <div class="container">
+
+    <div class="title">Build Itinerary</div>
+
+    <div class="subtitle">
+      Organize your trip by adding sections like travel, hotel stays,
+      activities and more.
+    </div>
+
+    <div id="sectionsContainer"></div>
+
+    <div class="add-section" onclick="addSection()">
+      <i class="fa-solid fa-plus"></i>
+      Add another Section
+    </div>
+
+    <div class="bottom-buttons">
+
+      <button class="btn btn-outline">
+        Cancel
+      </button>
+
+      <button class="btn btn-primary">
+        <i class="fa-regular fa-floppy-disk"></i>
+        Save Itinerary
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- MODAL -->
+
+  <div class="modal-overlay" id="modal">
+
+    <div class="modal">
+
+      <div class="close" onclick="closeModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+
+      <h2>Edit Section</h2>
+
+      <div class="grid-2">
+
+        <div class="field">
+          <label>Section Title</label>
+          <input class="input" id="titleInput">
+        </div>
+
+        <div class="field">
+          <label>Section Type</label>
+
+          <select class="input" id="typeInput">
+            <option>Activity</option>
+            <option>Hotel</option>
+            <option>Travel</option>
+            <option>Food</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label>Destination / Location</label>
+        <input class="input" id="locationInput">
+      </div>
+
+      <div class="grid-3">
+
+        <div class="field">
+          <label>Start Date</label>
+          <input type="date" class="input" id="startDateInput">
+        </div>
+
+        <div class="field">
+          <label>End Date</label>
+          <input type="date" class="input" id="endDateInput">
+        </div>
+
+        <div class="field">
+          <label>Budget</label>
+          <input type="number" class="input" id="budgetInput">
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label>Description</label>
+        <textarea class="input" id="descriptionInput"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Activities</label>
+
+        <div class="tag-box">
+          <div class="tag">Colosseum Tour</div>
+          <div class="tag">City Walk</div>
+          <div class="tag">Local Food</div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+
+        <button class="btn delete-btn" onclick="deleteSection(currentEditIndex)">
+          <i class="fa-regular fa-trash-can"></i>
+          Delete Section
+        </button>
+
+        <div class="footer-right">
+
+          <button class="btn btn-outline" onclick="closeModal()">
+            Cancel
+          </button>
+
+          <button class="btn btn-primary" onclick="saveChanges()">
+            Save Changes
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>
