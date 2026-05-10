@@ -1,24 +1,45 @@
+// --- PHOTO PREVIEW ---
+document.getElementById('signup-photo')?.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const preview = document.getElementById('photo-preview');
+            preview.innerHTML = `<img src="${event.target.result}" alt="Profile Photo">`;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
 // --- SIGNUP LOGIC ---
 document.getElementById('signup-form').addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const fullName = document.getElementById('signup-name').value;
     const email = document.getElementById('signup-email').value;
+    const phone = document.getElementById('signup-phone').value;
+    const city = document.getElementById('signup-city').value;
+    const country = document.getElementById('signup-country').value;
     const password = document.getElementById('signup-password').value;
-    const confirmPassword = document.getElementById('signup-confirm').value; // Fixed
+    const confirmPassword = document.getElementById('signup-confirm').value;
+    const additionalInfo = document.getElementById('signup-additional-info').value;
 
     if (password !== confirmPassword) {
         showMessage("Passwords do not match!", "error");
         return;
     }
 
-    const response = await fetch('http://127.0.0.1:8000/register', {
+    const response = await fetch('/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
             full_name: fullName, 
-            email: email, 
-            password: password 
+            email: email,
+            phone_number: phone,
+            city: city,
+            country: country,
+            password: password,
+            additional_info: additionalInfo
         })
     });
 
@@ -43,7 +64,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
 
-    const response = await fetch('http://127.0.0.1:8000/login', {
+    const response = await fetch('/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         // Matches UserLogin schema: strictly email and password

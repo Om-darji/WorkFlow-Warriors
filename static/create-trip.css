@@ -1,0 +1,247 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0f172a; 
+    color: #f1f5f9;
+}
+
+/* Message Notification Bar */
+.message-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 90%;
+    width: auto;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    z-index: 9999;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.message-box.success {
+    background: #10b981;
+    color: white;
+    border: 1px solid #059669;
+}
+
+.message-box.error {
+    background: #ef4444;
+    color: white;
+    border: 1px solid #dc2626;
+}
+
+.message-box.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(-20px);
+}
+
+/* Wider container to remove side spacing */
+.container {
+    width: 100%;
+    max-width: 95%; 
+    margin: 0 auto;
+    padding: 40px 10px;
+}
+
+/* Page Title with Inline Logo */
+.page-title {
+    margin-bottom: 35px;
+}
+
+.page-content {
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.brand-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.inline-logo {
+    width: 120px;
+    height: 120px;
+    /* object-fit: contain; */
+}
+
+.page-title h1 {
+    font-size: 32px;
+    font-weight: 700;
+    background: linear-gradient(to right, #60a5fa, #c084fc);
+    background-clip: text; /* Standard property first */
+    -webkit-background-clip: text; /* Vendor prefix second */
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback for older browsers */
+}
+
+.subtitle {
+    margin-top: 10px;
+    color: #cbd5e1;
+    font-size: 15px;
+    max-width: 640px;
+    line-height: 1.6;
+}
+
+/* Dark Mode Form Section */
+.trip-form-section {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 24px;
+    padding: 35px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    max-width: 920px;
+    margin: 0 auto 50px auto;
+}
+
+.trip-form {
+    display: grid;
+    gap: 30px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-full {
+    grid-column: span 2;
+}
+
+.form-actions {
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.form-group label {
+    margin-bottom: 10px;
+    font-size: 13px;
+    text-transform: uppercase;
+    color: #94a3b8;
+    letter-spacing: 0.6px;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 14px;
+    background: #0f172a;
+    border: 1px solid #475569;
+    border-radius: 12px;
+    outline: none;
+    color: white;
+    font-size: 15px;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 130px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #3b82f6;
+}
+
+.plan-trip-btn {
+    min-width: 180px;
+    padding: 16px 26px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.plan-trip-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.35);
+    opacity: 0.98;
+}
+
+/* Suggestions Section */
+.suggestions-section {
+    margin-top: 50px;
+}
+
+.suggestions-section h2 {
+    font-size: 22px;
+    margin-bottom: 30px;
+    color: #cbd5e1;
+}
+
+/* 4-column grid for wide screens */
+.suggestion-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+}
+
+/* Suggestion Cards */
+.suggestion-card {
+    height: 280px;
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestion-card img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 15px;
+    text-align: center;
+}
+
+.card-content h3 {
+    font-size: 16px;
+    color: #f1f5f9;
+}
+
+.suggestion-card:hover {
+    transform: translateY(-8px);
+    border-color: #3b82f6;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+}
+
+/* Mobile & Tablet Responsive Brackets */
+@media (max-width: 1200px) {
+    .suggestion-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 900px) {
+    .suggestion-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+    .trip-form { grid-template-columns: 1fr; }
+    .suggestion-grid { grid-template-columns: 1fr; }
+}

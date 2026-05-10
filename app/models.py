@@ -11,7 +11,10 @@ class User(Base):
     email = Column(String(100), unique=True, nullable=False, index=True)
     password_hash = Column(String(255), nullable=False)
     full_name = Column(String(100))
-    # Links to Screen 12 (Settings/Profile)
+    phone_number = Column(String(20), nullable=True)
+    city = Column(String(100), nullable=True)
+    country = Column(String(100), nullable=True)
+    additional_info = Column(Text, nullable=True)
     language_pref = Column(String(20), default="English")
     profile_pic = Column(String(255), nullable=True)
 

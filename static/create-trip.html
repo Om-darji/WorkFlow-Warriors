@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Trip - Traveloop</title>
+    <link rel="stylesheet" href="create-trip.css">
+</head>
+<body>
+
+<div id="message-box" class="message-box hidden"></div>
+
+<div class="container">
+
+    <section class="page-title">
+        <div class="brand-header">
+            <img src="logo.png" alt="Traveloop Logo" class="inline-logo">
+            <div>
+                <h1>Plan a New Trip</h1>
+                <p class="subtitle">Build your itinerary, add dates and budget, then save it instantly.</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="page-content">
+        <section class="trip-form-section">
+            <form class="trip-form" id="create-trip-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="trip-title">Trip Title</label>
+                        <input type="text" id="trip-title" placeholder="Enter trip title" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="trip-destination">Destination</label>
+                        <input type="text" id="trip-destination" placeholder="Enter destination" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="trip-start-date">Start Date</label>
+                        <input type="date" id="trip-start-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="trip-end-date">End Date</label>
+                        <input type="date" id="trip-end-date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="trip-budget">Total Budget</label>
+                        <input type="number" id="trip-budget" placeholder="0.00" step="0.01" min="0">
+                    </div>
+
+                    <div class="form-group form-group-full">
+                        <label for="trip-description">Trip Description</label>
+                        <textarea id="trip-description" placeholder="Describe your travel plans" rows="4"></textarea>
+                    </div>
+
+                    <div class="form-group form-actions">
+                        <button type="submit" class="plan-trip-btn">Confirm Trip</button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <section class="suggestions-section">
+            <h2>Suggestions for Places to Visit / Activities to Perform</h2>
+            <div class="suggestion-grid">
+            <div class="suggestion-card">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=500" alt="Mountain">
+                <div class="card-content"><h3>Mountain Hiking</h3></div>
+            </div>
+            <div class="suggestion-card">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500" alt="Beach">
+                <div class="card-content"><h3>Tropical Escape</h3></div>
+            </div>
+            <div class="suggestion-card">
+                <img src="https://images.unsplash.com/photo-1449034446853-66c86144b0ad?w=500" alt="City">
+                <div class="card-content"><h3>City Tours</h3></div>
+            </div>
+            <div class="suggestion-card">
+                <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=500" alt="Lake">
+                <div class="card-content"><h3>Lake Side</h3></div>
+            </div>
+            <div class="suggestion-card">
+                <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=500" alt="Aurora">
+                <div class="card-content"><h3>Northern Lights</h3></div>
+            </div>
+            <div class="suggestion-card">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=500" alt="Forest">
+                <div class="card-content"><h3>Forest Retreat</h3></div>
+            </div>
+            <div class="suggestion-card">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=500" alt="Road Trip">
+                <div class="card-content"><h3>Road Trip</h3></div>
+            </div>
+            <div class="suggestion-card">
+                <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=500" alt="Boating">
+                <div class="card-content"><h3>Boating</h3></div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+function showMessage(text, type) {
+    const box = document.getElementById('message-box');
+    if (!box) return;
+    
+    box.innerText = text;
+    box.className = type === 'error' ? 'message-box error' : 'message-box success';
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        box.className = 'message-box hidden';
+    }, 5000);
+}
+
+document.getElementById('create-trip-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const userId = localStorage.getItem('user_id');
+    if (!userId) {
+        showMessage("Please login first!", 'error');
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1500);
+        return;
+    }
+
+    // Prepare Multipart Form Data for the backend
+    const formData = new FormData();
+    formData.append('user_id', userId);
+    formData.append('title', document.getElementById('trip-title').value.trim());
+    const destination = document.getElementById('trip-destination').value.trim();
+    const description = document.getElementById('trip-description').value.trim();
+    formData.append('description', destination ? `${destination} - ${description}` : description);
+    formData.append('start_date', document.getElementById('trip-start-date').value);
+    formData.append('end_date', document.getElementById('trip-end-date').value);
+    formData.append('total_budget', document.getElementById('trip-budget').value || '0.0');
+    
+    try {
+        const response = await fetch('/trips/create', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            showMessage("Trip created successfully! Redirecting...", 'success');
+            setTimeout(() => {
+                window.location.href = 'landing.html';
+            }, 2000);
+        } else {
+            const message = result.detail || "Failed to create trip.";
+            showMessage(message, 'error');
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        showMessage("Unable to send trip data to the server.", 'error');
+    }
+});
+</script>
+</body>
+</html>

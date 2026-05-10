@@ -6,6 +6,13 @@
     -webkit-font-smoothing: antialiased;
 }
 
+body {
+    font-family: 'Inter', sans-serif, Arial;
+    background: #0f172a;
+    color: #f1f5f9;
+    min-height: 100vh;
+}
+
 .card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
@@ -24,13 +31,6 @@
 .plan-trip-btn:hover {
     transform: scale(1.1);
     background: #1d4ed8;
-}
-
-body {
-    font-family: 'Inter', sans-serif, Arial;
-    background: #0f172a;
-    color: #f1f5f9;
-    min-height: 100vh;
 }
 
 .logo {
@@ -62,7 +62,7 @@ body {
     padding: 10px 0; 
     background: transparent;
     border: none;
-    margin-bottom: 5px; 
+    margin-bottom: 5px; /* Removes gap between navbar and hero banner */
 }
 
 .logo-group {

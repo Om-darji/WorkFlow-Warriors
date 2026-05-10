@@ -6,6 +6,10 @@ from datetime import date
 class UserBase(BaseModel):
     email: EmailStr
     full_name: Optional[str] = None
+    phone_number: Optional[str] = None
+    city: Optional[str] = None
+    country: Optional[str] = None
+    additional_info: Optional[str] = None
 
 class UserLogin(BaseModel):
     email: EmailStr

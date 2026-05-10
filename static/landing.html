@@ -107,7 +107,7 @@
 
     </div>
 
-    <button class="plan-trip-btn">+ Plan a Trip</button>
+    <button class="plan-trip-btn" onclick="checkAuthAndPlan()">+ Plan a Trip</button>
 
 </body>
 
@@ -123,16 +123,25 @@
         }
 
         // Single source of truth for the click handler
-        planBtn.addEventListener('click', () => {
-            if (!userId) {
-                window.location.href = "login.html";
-            } else {
-                // This is where you'll eventually trigger the Trip Modal
-                alert("Auth verified! Opening Trip Planner...");
-            }
-        });
+        if (planBtn) {
+            planBtn.addEventListener('click', () => {
+                if (!userId) {
+                    window.location.href = "login.html";
+                } else {
+                    alert("Auth verified! Opening Trip Planner...");
+                }
+            });
+        }
     });
-</script>
 
+    function checkAuthAndPlan() {
+        const userId = localStorage.getItem('user_id');
+        if (userId) {
+            window.location.href = 'create-trip.html';
+        } else {
+            window.location.href = 'login.html';
+        }
+    }
+</script>
 
 </html>
