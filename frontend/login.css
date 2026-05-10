@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins", sans-serif;
+}
+
+body{
+    background:#0f172a;
+}
+
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* Left Section */
+.left-section{
+    width:50%;
+    background:linear-gradient(135deg, #111827, #1e293b);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:50px;
+    min-height:100vh;
+}
+
+.left-content{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    max-width:500px;
+    gap:8px; 
+}
+
+.logo{
+    width:320px;
+    max-width:100%; 
+    display:block;
+    margin:0 auto 8px auto;
+}
+
+.brand-name{
+    font-size:3rem;
+    font-weight:800;
+    color:#ffffff;
+    margin-top:0;
+    margin-bottom:6px; 
+    line-height:1.1;  
+}
+
+.left-content h2{
+    font-size:36px;
+    color:#f8fafc;
+    margin-bottom:20px;
+    font-weight:700;
+}
+
+.left-content p{
+    font-size:17px;
+    line-height:1.8;
+    color:#cbd5e1;
+}
+
+/* Right Section */
+.right-section{
+    width:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:white;
+    padding:40px;
+}
+
+.auth-container{
+    width:400px;
+    overflow:hidden;
+}
+
+/* Hide Radio Buttons */
+input[type="radio"]{
+    display:none;
+}
+
+/* Tabs */
+.tabs{
+    display:flex;
+    background:#f1f5f9;
+    padding:5px;
+    border-radius:14px;
+    margin-bottom:30px;
+}
+
+.tabs label{
+    width:50%;
+    text-align:center;
+    padding:14px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:500;
+    transition:0.3s;
+}
+
+/* Active Tabs */
+#login:checked ~ .tabs .login-tab{
+    background:white;
+    color:#2563eb;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+#signup:checked ~ .tabs .signup-tab{
+    background:white;
+    color:#2563eb;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Form Wrapper */
+.form-wrapper{
+    width:200%;
+    display:flex;
+    transition:0.5s ease;
+}
+
+/* Forms */
+.form{
+    width:50%;
+    padding:10px;
+}
+
+.form h2{
+    font-size:28px;
+    margin-bottom:25px;
+    color:#0f172a;
+}
+
+/* Input Fields */
+.input-group{
+    margin-bottom:20px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:8px;
+    font-size:14px;
+    color:#334155;
+    font-weight:500;
+}
+
+.input-group input{
+    width:100%;
+    padding:15px;
+    border:1px solid #cbd5e1;
+    border-radius:12px;
+    outline:none;
+    font-size:15px;
+}
+
+.input-group input:focus{
+    border-color:#2563eb;
+}
+
+/* Forgot Password */
+.forgot-password{
+    display:block;
+    text-align:right;
+    text-decoration:none;
+    margin-bottom:20px;
+    font-size:14px;
+    color:#2563eb;
+}
+
+/* Button */
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    background:#2563eb;
+    color:white;
+    border-radius:12px;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#1d4ed8;
+}
+
+/* Sliding Forms */
+#login:checked ~ .form-wrapper{
+    transform:translateX(0%);
+}
+
+#signup:checked ~ .form-wrapper{
+    transform:translateX(-50%);
+}
+
+/* Responsive */
+@media(max-width:900px){
+
+    .container{
+        flex-direction:column;
+    }
+
+    .left-section,
+    .right-section{
+        width:100%;
+    }
+
+    .left-section{
+        min-height:40vh;
+    }
+
+    .auth-container{
+        width:90%;
+    }
+
+    .logo{
+        width:250px;
+    }
+
+    .left-content h2{
+        font-size:28px;
+    }
+}
