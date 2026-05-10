@@ -1,3 +1,30 @@
+from fastapi import Body
+# Itinerary Builder Endpoint
+@app.post("/trips/{trip_id}/itinerary")
+def build_itinerary(
+    trip_id: int,
+    stops: list = Body(..., example=[
+        {
+            "city": "Paris",
+            "start_date": "2026-06-01",
+            "end_date": "2026-06-05",
+            "activities": ["Eiffel Tower", "Louvre Museum"]
+        },
+        {
+            "city": "Rome",
+            "start_date": "2026-06-06",
+            "end_date": "2026-06-09",
+            "activities": ["Colosseum", "Vatican City"]
+        }
+    ])
+):
+    # Here you would save the itinerary to the database
+    # For now, just return the received data
+    return {
+        "message": "Itinerary saved successfully",
+        "trip_id": trip_id,
+        "itinerary": stops
+    }
 from typing import List
 # My Trips (Trip List) Endpoint
 @app.get("/trips")
