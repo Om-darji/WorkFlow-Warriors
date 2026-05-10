@@ -1,3 +1,53 @@
+# Packing Checklist Endpoints
+from fastapi import Query
+
+# Example in-memory checklist store (replace with DB in production)
+packing_checklists = {}
+
+# Get checklist
+@app.get("/trips/{trip_id}/packing-checklist")
+def get_packing_checklist(trip_id: int):
+    checklist = packing_checklists.get(trip_id, [
+        {"id": 1, "item": "Passport", "packed": False, "category": "documents"},
+        {"id": 2, "item": "T-Shirts", "packed": False, "category": "clothing"},
+        {"id": 3, "item": "Phone Charger", "packed": False, "category": "electronics"}
+    ])
+    return {"checklist": checklist}
+
+# Add item
+@app.post("/trips/{trip_id}/packing-checklist/add")
+def add_packing_item(trip_id: int, item: str = Query(...), category: str = Query("other")):
+    checklist = packing_checklists.setdefault(trip_id, [])
+    new_id = max([i["id"] for i in checklist], default=0) + 1
+    new_item = {"id": new_id, "item": item, "packed": False, "category": category}
+    checklist.append(new_item)
+    return {"message": "Item added", "item": new_item}
+
+# Update (mark packed/unpacked)
+@app.post("/trips/{trip_id}/packing-checklist/mark")
+def mark_packing_item(trip_id: int, item_id: int = Query(...), packed: bool = Query(...)):
+    checklist = packing_checklists.setdefault(trip_id, [])
+    for i in checklist:
+        if i["id"] == item_id:
+            i["packed"] = packed
+            return {"message": "Item updated", "item": i}
+    return {"error": "Item not found"}
+
+# Remove item
+@app.delete("/trips/{trip_id}/packing-checklist/remove")
+def remove_packing_item(trip_id: int, item_id: int = Query(...)):
+    checklist = packing_checklists.setdefault(trip_id, [])
+    for i in checklist:
+        if i["id"] == item_id:
+            checklist.remove(i)
+            return {"message": "Item removed", "item_id": item_id}
+    return {"error": "Item not found"}
+
+# Reset checklist
+@app.post("/trips/{trip_id}/packing-checklist/reset")
+def reset_packing_checklist(trip_id: int):
+    packing_checklists[trip_id] = []
+    return {"message": "Checklist reset"}
 # Trip Budget & Cost Breakdown Endpoint
 @app.get("/trips/{trip_id}/budget")
 def trip_budget_breakdown(trip_id: int):
