@@ -39,7 +39,7 @@ def register(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
         city=user.city,
         country=user.country,
         additional_info=user.additional_info,
-        password_hash=user.password  # To be hashed in production
+        password_hash=user.password.strip()  # To be hashed in production
     )
     db.add(new_user)
     db.commit()
@@ -52,7 +52,7 @@ def login(user_credentials: schemas.UserLogin, db: Session = Depends(database.ge
     user = db.query(models.User).filter(models.User.email == user_credentials.email).first()
     
     # 2. Validate
-    if not user or user.password_hash != user_credentials.password:
+    if not user or user.password_hash != user_credentials.password.strip():
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid Credentials"
@@ -61,7 +61,8 @@ def login(user_credentials: schemas.UserLogin, db: Session = Depends(database.ge
     return {
         "message": "Login successful", 
         "user_id": user.id,
-        "full_name": user.full_name
+        "full_name": user.full_name,
+        "profile_pic": user.profile_pic # Add profile picture URL to response
     }
 
 # --- TRIP MANAGEMENT ---

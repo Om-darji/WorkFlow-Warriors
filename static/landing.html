@@ -22,8 +22,16 @@
                     <input type="text" class="nav-search" placeholder="Search destinations...">
                     <button class="search-inside-btn">🔍</button>
                 </div>
-                <div class="profile-circle" onclick="window.location.href='login.html'" style="cursor: pointer;">
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Profile">
+                <div class="profile-container-nav">
+                    <div class="profile-circle" id="profile-circle" onclick="toggleDropdown()" style="cursor: pointer;">
+                        <img id="profile-image" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Profile">
+                    </div>
+                    <div id="profile-dropdown" class="profile-dropdown">
+                        <a href="profile.html">View Profile</a>
+                        <a href="trip-listing.html">My Trips</a>
+                        <hr>
+                        <a href="#" onclick="logout()">Logout</a>
+                    </div>
                 </div>
 
                 <button class="plan-trip-btn" onclick="checkAuthAndPlan()">+ Plan a Trip</button>
@@ -114,8 +122,15 @@
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const userId = localStorage.getItem('user_id');
+        const userPhoto = localStorage.getItem('user_photo');
         const planBtn = document.querySelector('.plan-trip-btn');
         const sectionTitle = document.querySelector('.section-title');
+        const profileImage = document.getElementById('profile-image');
+
+        // Load user profile photo if available
+        if (userPhoto && profileImage) {
+            profileImage.src = userPhoto;
+        }
 
         if (userId) {
             console.log("Session active for user:", userId);
@@ -134,6 +149,30 @@
         }
     });
 
+    function toggleDropdown() {
+        const dropdown = document.getElementById('profile-dropdown');
+        dropdown.classList.toggle('show');
+    }
+
+    function logout() {
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('user_photo');
+        window.location.href = 'login.html';
+    }
+
+    // Close dropdown when clicking outside
+    window.onclick = function(event) {
+        if (!event.target.matches('.profile-circle') && !event.target.matches('#profile-image')) {
+            const dropdowns = document.getElementsByClassName("profile-dropdown");
+            for (let i = 0; i < dropdowns.length; i++) {
+                const openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
     function checkAuthAndPlan() {
         const userId = localStorage.getItem('user_id');
         if (userId) {
@@ -142,6 +181,7 @@
             window.location.href = 'login.html';
         }
     }
+
 </script>
 
 </html>

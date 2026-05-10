@@ -16,7 +16,17 @@
             <img src="logo.png" alt="Traveloop Logo" class="logo">
             <h1 class="brand-name">Travel Loop</h1>
         </div>
-        <div class="profile-circle">👤</div>
+        <div class="profile-container-nav">
+            <div class="profile-circle" id="profile-circle" onclick="toggleDropdown()" style="cursor: pointer;">
+                <img id="profile-image" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="Profile">
+            </div>
+            <div id="profile-dropdown" class="profile-dropdown">
+                <a href="profile.html">View Profile</a>
+                <a href="trip-listing.html">My Trips</a>
+                <hr>
+                <a href="#" onclick="logout()">Logout</a>
+            </div>
+        </div>
     </nav>
 
     <section class="search-section">
@@ -86,6 +96,65 @@
     </section>
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const userId = localStorage.getItem('user_id');
+        const userPhoto = localStorage.getItem('user_photo');
+        const profileImage = document.getElementById('profile-image');
+
+        // Load user profile photo if available
+        if (userPhoto && profileImage) {
+            profileImage.src = userPhoto;
+        }
+
+        // Redirect to login if not authenticated
+        if (!userId) {
+            window.location.href = 'login.html';
+        } else {
+            loadUserTrips(userId);
+        }
+    });
+
+    function toggleDropdown() {
+        const dropdown = document.getElementById('profile-dropdown');
+        dropdown.classList.toggle('show');
+    }
+
+    function logout() {
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('user_photo');
+        window.location.href = 'login.html';
+    }
+
+    // Close dropdown when clicking outside
+    window.onclick = function(event) {
+        if (!event.target.matches('.profile-circle') && !event.target.matches('#profile-image')) {
+            const dropdowns = document.getElementsByClassName("profile-dropdown");
+            for (let i = 0; i < dropdowns.length; i++) {
+                const openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+
+    async function loadUserTrips(userId) {
+        try {
+            const response = await fetch(`/trips/${userId}`);
+            if (!response.ok) {
+                console.error('Failed to load trips');
+                return;
+            }
+            const trips = await response.json();
+            console.log('User trips:', trips);
+            // TODO: Dynamically populate trip sections with fetched data
+        } catch (error) {
+            console.error('Error loading trips:', error);
+        }
+    }
+</script>
 
 </body>
 </html>

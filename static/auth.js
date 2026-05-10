@@ -6,6 +6,7 @@ document.getElementById('signup-photo')?.addEventListener('change', function(e) 
         reader.onload = function(event) {
             const preview = document.getElementById('photo-preview');
             preview.innerHTML = `<img src="${event.target.result}" alt="Profile Photo">`;
+            localStorage.setItem('user_photo', event.target.result);
         };
         reader.readAsDataURL(file);
     }
@@ -78,6 +79,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     if (response.ok) {
         // Storing the ID for relational trip creation later
         localStorage.setItem('user_id', data.user_id);
+        localStorage.setItem('user_photo', data.profile_pic || ''); // Store profile picture
         showMessage("Login successful! Welcome back.", 'success');
         
         setTimeout(() => {

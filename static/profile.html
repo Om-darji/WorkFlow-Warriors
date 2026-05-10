@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveloop | My Profile</title>
+    <link rel="stylesheet" href="login.css"> <!-- Reusing login.css for consistent form styling -->
+    <link rel="stylesheet" href="profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="message-box" class="hidden-msg"></div>
+
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-header">
+                <button class="back-btn" onclick="window.history.back()">← Back</button>
+                <h2>Edit Profile</h2>
+            </div>
+
+            <form id="profile-form">
+                <div class="photo-upload-section">
+                    <div class="photo-preview" id="photo-preview">
+                        <img id="current-photo" src="" alt="Profile Photo" style="display: none;">
+                        <span id="photo-placeholder">📷</span>
+                    </div>
+                    <label for="profile-photo" class="upload-label">Change Photo</label>
+                    <input type="file" id="profile-photo" accept="image/*" hidden>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" id="profile-name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email Address</label>
+                        <input type="email" id="profile-email" disabled>
+                        <small>Email cannot be changed</small>
+                    </div>
+                    <div class="input-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="profile-phone">
+                    </div>
+                    <div class="input-group">
+                        <label>City</label>
+                        <input type="text" id="profile-city">
+                    </div>
+                    <div class="input-group">
+                        <label>Country</label>
+                        <input type="text" id="profile-country">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Additional Info</label>
+                    <textarea id="profile-additional-info" rows="3"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userId = localStorage.getItem('user_id');
+            if (!userId) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Load current data
+            try {
+                const response = await fetch(`/users/${userId}`);
+                if (response.ok) {
+                    const user = await response.json();
+                    document.getElementById('profile-name').value = user.full_name || '';
+                    document.getElementById('profile-email').value = user.email || '';
+                    document.getElementById('profile-phone').value = user.phone_number || '';
+                    document.getElementById('profile-city').value = user.city || '';
+                    document.getElementById('profile-country').value = user.country || '';
+                    document.getElementById('profile-additional-info').value = user.additional_info || '';
+                    
+                    const photo = user.profile_pic || localStorage.getItem('user_photo');
+                    if (photo) {
+                        const img = document.getElementById('current-photo');
+                        img.src = photo;
+                        img.style.display = 'block';
+                        document.getElementById('photo-placeholder').style.display = 'none';
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+            }
+
+            // Photo preview
+            document.getElementById('profile-photo').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const img = document.getElementById('current-photo');
+                        img.src = event.target.result;
+                        img.style.display = 'block';
+                        document.getElementById('photo-placeholder').style.display = 'none';
+                        localStorage.setItem('user_photo', event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Save changes
+            document.getElementById('profile-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const updatedData = {
+                    full_name: document.getElementById('profile-name').value,
+                    phone_number: document.getElementById('profile-phone').value,
+                    city: document.getElementById('profile-city').value,
+                    country: document.getElementById('profile-country').value,
+                    additional_info: document.getElementById('profile-additional-info').value,
+                    profile_pic: localStorage.getItem('user_photo') || null
+                };
+
+                try {
+                    const response = await fetch(`/users/${userId}/update`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(updatedData)
+                    });
+
+                    if (response.ok) {
+                        showMessage("Profile updated successfully!", "success");
+                    } else {
+                        showMessage("Failed to update profile", "error");
+                    }
+                } catch (error) {
+                    showMessage("Error connecting to server", "error");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
