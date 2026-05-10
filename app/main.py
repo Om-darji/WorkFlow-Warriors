@@ -1,3 +1,22 @@
+# City Search Endpoint
+@app.get("/cities/search")
+def search_cities(query: str = "", country: str = None, region: str = None):
+    # Example static city data; replace with DB query in production
+    all_cities = [
+        {"name": "Paris", "country": "France", "cost_index": 85, "popularity": 95},
+        {"name": "Rome", "country": "Italy", "cost_index": 70, "popularity": 90},
+        {"name": "Tokyo", "country": "Japan", "cost_index": 95, "popularity": 98},
+        {"name": "Goa", "country": "India", "cost_index": 40, "popularity": 80},
+        {"name": "Bali", "country": "Indonesia", "cost_index": 50, "popularity": 88},
+        {"name": "Zurich", "country": "Switzerland", "cost_index": 100, "popularity": 85}
+    ]
+    filtered = [
+        city for city in all_cities
+        if (query.lower() in city["name"].lower())
+        and (country is None or city["country"].lower() == country.lower())
+        and (region is None or region.lower() in city["country"].lower())
+    ]
+    return {"results": filtered}
 # Itinerary View Endpoint
 @app.get("/trips/{trip_id}/itinerary/view")
 def view_itinerary(trip_id: int, view_mode: str = "list"):
