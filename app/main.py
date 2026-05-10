@@ -1,3 +1,23 @@
+# Landing Page Endpoint
+@app.get("/landing")
+def landing_page():
+    return {
+        "title": "Welcome to Traveloop!",
+        "subtitle": "Plan, organize, and share your dream trips effortlessly.",
+        "features": [
+            "Personalized trip planning",
+            "Interactive itinerary builder",
+            "Budget tracking & analytics",
+            "Packing checklist & notes",
+            "Shareable public itineraries"
+        ],
+        "call_to_action": "Sign up now and start your next adventure!",
+        "links": {
+            "signup": "/signup",
+            "login": "/login",
+            "explore_public": "/public/itinerary/demo"
+        }
+    }
 # Admin / Analytics Dashboard Endpoint
 @app.get("/admin/analytics")
 def admin_analytics_dashboard():
